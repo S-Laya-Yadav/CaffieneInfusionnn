@@ -63,7 +63,7 @@ async function main(){
 const store = MongoStore.create({
   mongoUrl:dbUrl,
   crypto:{
-    secret: process.env.SECERT,
+    secret: process.env.SECRET,
   },
   touchAfter: 24 * 3600,
 })
@@ -76,7 +76,7 @@ store.on("error",()=>{
 // Set up express-session
 app.use(session({
   store,
-    secret: process.env.SECERT, // Replace with a secure secret key
+    secret: process.env.SECRET, // Replace with a secure secret key
     resave: false,
     saveUninitialized: false,
     
