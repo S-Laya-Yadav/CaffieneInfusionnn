@@ -1,0 +1,45 @@
+<% layout("/layouts/boilerplate") %>
+
+<div style="text-align: center; font-family: 'Georgia', serif; line-height: 1.8; margin: 30px;">
+    <h1 style="font-size: 3rem; font-style: italic; font-weight: 400; margin-bottom: 10px;">
+      Caffeine Infusion
+    </h1>
+    <h5 style="font-size: 1.1rem; margin-bottom: 20px; line-height: 1.6; text-decoration: underline; font-weight: 300;">
+      Caffeine Infusion No 23, <br>
+      KHB MIG Colony, <br>
+      Koramangala 8th Block, <br>
+      Koramangala, Bengaluru, Karnataka 560095
+    </h5>
+    <h5 style="font-size: 1.1rem; margin-bottom: 20px;  font-weight: 100;">
+      9:00 AM - 3:00 PM <br>
+      4:30 PM - 10:00 PM
+    </h5>
+    <h3 style="font-size: 1.2rem; font-weight: 700; text-transform: uppercase;">
+      Sunday - Friday <br>
+      <span style="font-size: 1rem; font-weight: 400;">Closed Saturday</span>
+    </h3>
+
+
+  <div>
+    <h3>Get Directions</h3>
+  <div id="map" ">
+  </div>
+
+
+  <script>
+    const mapToken = "pk.eyJ1Ijoic2hhbnRhcHBhLWh1bHN1cmUiLCJhIjoiY2x5OGw5b21jMGc1aTJqczhseGszYjl3ZyJ9.sdPK0mdBIa0QbYj0MlvLsg"; // Use the token passed from the server
+
+    mapboxgl.accessToken = mapToken;
+    const map = new mapboxgl.Map({
+        container: 'map', // container ID
+        style: 'mapbox://styles/mapbox/streets-v12',
+        center: [77.6232, 12.9346], // Koramangala, Bengaluru
+        zoom: 11 // starting zoom level
+    });
+
+    const marker1 = new mapboxgl.Marker({color: 'brown'})
+    .setLngLat([77.6232, 12.9346])
+    .setPopup( new mapboxgl.Popup({offset: 25}).setHTML(`<h4>Koramangala, Bengaluru</h4><p>Exact Location Provided<\p>`))
+    .addTo(map);
+</script>
+

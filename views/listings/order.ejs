@@ -1,0 +1,52 @@
+<% layout("/layouts/boilerplate") %>
+
+<% if (messages && messages.length > 0) { %>
+  <% messages.forEach(message => { %>
+      <div class="alert alert-<%= message.type === 'error' ? 'danger' : message.type %>">
+          <%= message.text %>
+      </div>
+  <% }); %>
+<% } %>
+
+
+
+  <div class="container mt-3 align-items-center" >
+    
+    <div class="d-flex flex-column align-items-center">
+      <% for (let order of allOrders) { %>
+        <div class="col-md-8 mb-3">
+          <div class="card shadow-sm border-0 rounded">
+            <div class="row g-0 align-items-center">
+              <!-- Image Section -->
+              <div class="col-md-4">
+                <img src="<%= order.image.url %>" class="img-fluid rounded-start" alt="Order Image" style="height: 13rem; object-fit: cover;">
+              </div>
+
+              <!-- Order Details Section -->
+              <div class="col-md-8">
+                <div class="card-body">
+                  <!-- Title -->
+                  <h5 class="card-title fw-bold"><%= order.title %></h5>
+
+                  <!-- Description -->
+                  <p class="card-text text-muted mb-2"><%= order.description %></p>
+
+                  <!-- Price -->
+                  <p class="card-text fw-bold mb-3">&#8377;<%= order.price %></p>
+
+                  <!-- Add to Cart Button -->
+                  <form method="POST" action="/listings/cart">
+                    <input type="hidden" name="title" value="<%= order.title %>">
+                    <input type="hidden" name="description" value="<%= order.description %>">
+                    <input type="hidden" name="price" value="<%= order.price %>">
+                    <input type="hidden" name="image" value="<%= order.image.url %>">
+                    <button type="submit" class="btn btn-primary  btn-color btn-sm">Add to Cart</button>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      <% } %>
+    </div>
+  </div>

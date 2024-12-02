@@ -1,0 +1,61 @@
+<% layout("/layouts/boilerplate") %>
+<div class="cart-container mt-3 mb-3" style="width: 100%; padding: 1rem 0;  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);">
+  <h3 style="text-align: center;">Cart Details:</h3>
+
+  <% if (cart && cart.length > 0) { %>
+    <% let totalAmount = 0; %>
+    <% cart.forEach((item, index) => { 
+         let itemPrice = parseFloat(item.price || 0); 
+         if (!isNaN(itemPrice)) {
+           totalAmount += itemPrice; 
+         }
+    %>
+    <div class="cart-item" style="width: 100%; display: flex; justify-content: center; margin-bottom: 1rem;">
+      <div class="card mb-3" style="width: 80%; border: 1px solid #ddd;">
+        <div class="row g-0">
+          <div class="col-md-4">
+            <img src="<%= item.image %>" class="img-fluid rounded-start" alt="Product Image" style="height: 12rem; width: 100%; object-fit: cover;">
+          </div>
+          <div class="col-md-8">
+            <div class="card-body">
+              <h5 class="card-title"><%= item.title %></h5>
+              <p class="card-text"><%= item.description %></p>
+              <p class="card-text card-price">
+                Price: ₹<%= !isNaN(itemPrice) ? itemPrice.toFixed(2) : "N/A" %> INR
+              </p>
+              <form method="POST" action="/listings/cart/remove">
+                <input type="hidden" name="index" value="<%= index %>">
+                <button type="submit" class="btn btn-primary btn-color" style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">Remove</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <% }) %>
+
+    <div class="total-amount" style="text-align: center; margin-top: 1rem;">
+      <h4>Total Amount: ₹<%= totalAmount.toFixed(2) %> INR</h4>
+    </div>
+
+    <div class="payment-method" style="text-align: center; margin-top: 2rem;">
+      <h5>Select Payment Method:</h5>
+      <form method="POST" action="/listings/cart/place-order" style="margin-top: 1rem;">
+        <div class="mb-3">
+          <label for="payment-method" class="form-label">Choose Payment Method</label>
+          <select name="paymentMethod" id="payment-method" class="form-select" style="width: 50%; margin: 0 auto;">
+            <option value="credit-card">Credit Card</option>
+            <option value="debit-card">Debit Card</option>
+            <option value="upi">UPI</option>
+            <option value="net-banking">Net Banking</option>
+            <option value="cod">Cash on delivery</option>
+          </select>
+        </div>
+        <input type="hidden" name="totalAmount" value="<%= totalAmount %>">
+        <button type="submit" class="btn btn-success btn-color" style="margin-top: 1rem;">Place order</button>
+      </form>
+    </div>
+  <% } else { %>
+    <p style="text-align: center; margin-top: 2rem;">Your cart is empty.</p>
+  <% } %>
+</div>

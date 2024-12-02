@@ -1,0 +1,52 @@
+<% layout("/layouts/boilerplate") %>
+<div class="container mt-3 align-items-center">
+  <% for (let displayMenu of alldisplayMenu) { %>
+    <div class="card mb-3 mt-3" style="width: 45rem;">
+      <img src="<%= displayMenu.image %>" class="card-img-top" alt="<%= displayMenu.title %>">
+      <div class="card-body">
+        <h5 class="card-title"><%= displayMenu.title %></h5>
+        <p class="card-text"><%= displayMenu.description %></p>
+        <p class="card-text card-price" style="text-align: center;">&#8377;<%= displayMenu.price %></p>
+      </div>
+    </div>
+  <% } %>
+</div>
+<style>
+  /* General container settings */
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Card settings */
+.card {
+  border: 1px solid #ddd;
+  border-radius: 40px;
+  
+}
+
+.card-img-top {
+ border-radius: 40px;
+  max-height: 400px;
+  object-fit: cover;
+}
+
+.card-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  text-align: center; /* Center-aligns the text */
+}
+
+.card-text {
+  color: #555;
+  font-size: 1rem;
+}
+
+.card-price {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #000;
+}
+
+</style>

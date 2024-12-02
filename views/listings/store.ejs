@@ -1,0 +1,44 @@
+<% layout("/layouts/boilerplate") %>
+<body>
+  <div class="container mt-3 align-items-center">
+
+    <!-- Flexbox container to center-align cards -->
+    <div class="d-flex flex-column align-items-center">
+      <% for (let listing of allListings) { %>
+        <div class="card shadow-sm border-0 rounded mb-4" style="width: 50rem;">
+          <div class="row g-0 align-items-center">
+            <!-- Image Section -->
+            <div class="col-md-4">
+              <img src="<%= listing.image.url %>" class="img-fluid rounded-start" alt="Product Image" style="height: 90%; object-fit: cover;">
+            </div>
+
+            <!-- Product Details Section -->
+            <div class="col-md-8">
+              <div class="card-body">
+                <!-- Title -->
+                <h5 class="card-title fw-bold"><%= listing.title %></h5>
+
+                <!-- Description -->
+                <p class="card-text text-muted mb-2"><%= listing.description %></p>
+
+                <!-- Price -->
+                <p class="card-text fw-bold mb-3">&#8377;<%= listing.price %> per 250g bag</p>
+
+                <!-- Add to Cart Button -->
+                <form method="POST" action="/listings/cart">
+                  <!-- Send necessary product details as hidden fields -->
+                  <input type="hidden" name="title" value="<%= listing.title %>">
+                  <input type="hidden" name="description" value="<%= listing.description %>">
+                  <input type="hidden" name="price" value="<%= listing.price %>">
+                  <input type="hidden" name="image" value="<%= listing.image.url %>">
+                  <button type="submit" class="btn btn-primary btn-color">Add to Cart</button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      <% } %>
+    </div>
+  </div>
+</body>
+</html>
